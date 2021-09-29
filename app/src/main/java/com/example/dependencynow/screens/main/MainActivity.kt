@@ -1,27 +1,23 @@
 package com.example.dependencynow.screens.main
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dependencynow.MyApp
-import com.example.dependencynow.R
-import com.example.dependencynow.Utils
 import com.example.dependencynow.databinding.ActivityMainBinding
 import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory((application as MyApp).personDB)
-    }
-    val personAdapter: MainPersonAdapter by lazy { MainPersonAdapter() }
+    val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var personAdapter: MainPersonAdapter
+
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
 

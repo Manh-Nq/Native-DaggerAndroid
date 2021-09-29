@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:ellipsize="start"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:text="Manh Ngo"
         app:layout_constraintLeft_toLeftOf="parent"
