@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dependencynow.MyApp
 import com.example.dependencynow.R
+import com.example.dependencynow.Utils
+import com.example.dependencynow.databinding.ActivityMainBinding
+import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,21 +21,34 @@ class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MyApp).personDB)
     }
+    val personAdapter: MainPersonAdapter by lazy { MainPersonAdapter() }
+    private var _binding: ActivityMainBinding? = null
+    val binding: ActivityMainBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        findViewById<Button>(R.id.bt_insert).setOnClickListener {
-            viewModel.insert("manh", 25)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btInsert.setOnClickListener {
+            viewModel.insert()
         }
+        binding.btDelete.setOnClickListener {
+            viewModel.deleteAll()
+        }
+
+        initRecycle()
         observer()
+    }
+
+    private fun initRecycle() {
+        binding.rvPerson.layoutManager = LinearLayoutManager(this)
+        binding.rvPerson.adapter = personAdapter
     }
 
     private fun observer() {
         viewModel._data.observe(this) {
-            it.forEach { item ->
-                Log.d("ManhNQ", "observer: ${item.id}")
-            }
+            personAdapter.submitList(it)
         }
     }
 }

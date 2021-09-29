@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.dependencynow.Utils
 import com.example.dependencynow.database.dao.PersonDatabase
 import com.example.dependencynow.database.model.Person
 import kotlinx.coroutines.launch
@@ -24,9 +25,15 @@ class MainViewModel(dataBase: PersonDatabase) : ViewModel() {
     val _data = personDao.getAll().asLiveData()
 
 
-    fun insert(name: String, age: Int) {
+    fun insert() {
         viewModelScope.launch {
-            personDao.insert(Person(name = name, age = age))
+            personDao.insert(Utils.randomPerson())
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            personDao.deleteAll()
         }
     }
 
