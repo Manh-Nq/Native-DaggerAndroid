@@ -6,9 +6,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.screens.main.holder.MainPersonViewHolder
+import dagger.Provides
+import javax.inject.Inject
 
-class MainPersonAdapter(val listener: PersonListener) :
+class MainPersonAdapter @Inject constructor() :
     ListAdapter<Person, RecyclerView.ViewHolder>(PersonDiff()) {
+
+    var listener: PersonListener? = null
+
+    fun setOnclickListener(event: PersonListener) {
+        listener = event
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MainPersonViewHolder.create(parent, listener)
     }
@@ -29,4 +38,8 @@ class PersonDiff : DiffUtil.ItemCallback<Person>() {
     }
 }
 
-data class PersonListener(val deleteClicked: (Person) -> Unit, val itemClicked: (Person) -> Unit)
+data class PersonListener @Inject constructor(
+    val deleteClicked: (Person) -> Unit,
+    val itemClicked: (Person) -> Unit
+)
+

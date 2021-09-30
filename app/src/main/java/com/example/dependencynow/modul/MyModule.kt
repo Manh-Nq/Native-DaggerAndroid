@@ -1,8 +1,9 @@
 package com.example.dependencynow.modul
 
+import android.app.Activity
 import android.app.Application
 import com.example.dependencynow.database.dao.PersonDatabase
-import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MyModule {
+ class MyModule {
 
     @Provides
     @Singleton
@@ -20,9 +21,4 @@ class MyModule {
     @Provides
     @Singleton
     fun provideDao(personDatabase: PersonDatabase) = personDatabase.personDao
-
-    @Provides
-    fun providePersonAdapter() = MainPersonAdapter()
-
-
 }

@@ -1,7 +1,9 @@
 package com.example.dependencynow.screens.main
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dependencynow.MyApp
@@ -17,10 +19,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val viewModel: MainViewModel by viewModels()
+    private var toast: Toast? = null
 
     @Inject
     lateinit var personAdapter: MainPersonAdapter
+
+    val viewModel: MainViewModel by viewModels()
 
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecycle() {
+        personAdapter.setOnclickListener(PersonListener(this::deleteClicked, this::itemClicked))
         binding.rvPerson.layoutManager = LinearLayoutManager(this)
         binding.rvPerson.adapter = personAdapter
     }
@@ -52,11 +57,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemClicked(item: Person) {
-        Log.d(TAG, "onItemClicked: ")
-    }
-
-    private fun onDeleteClicked(item: Person) {
+    private fun deleteClicked(item: Person) {
         viewModel.delete(item)
     }
+
+    private fun itemClicked(item: Person) {
+
+    }
+
+    @SuppressLint("ShowToast")
+    fun generateNoti(txt: String) {
+        if (toast != null) {
+            toast?.cancel()
+        }
+        toast = Toast.makeText(this, txt, Toast.LENGTH_SHORT)
+        toast?.show()
+    }
+
 }
