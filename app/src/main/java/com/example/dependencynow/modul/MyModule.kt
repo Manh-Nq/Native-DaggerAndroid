@@ -22,7 +22,6 @@ class MyModule {
     fun provideDao(personDatabase: PersonDatabase) = personDatabase.personDao
 
     @Provides
-    @Singleton
     fun providePersonAdapter() = MainPersonAdapter()
 
 
