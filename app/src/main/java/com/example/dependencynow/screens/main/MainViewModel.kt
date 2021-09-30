@@ -30,4 +30,10 @@ class MainViewModel @Inject constructor(private val personDao: PersonDao) : View
         }
     }
 
+    fun delete(item: Person) {
+        viewModelScope.launch {
+            personDao.delete(item.id)
+        }
+    }
+
 }
