@@ -1,8 +1,8 @@
 package com.example.dependencynow
 
 import android.app.Application
-import com.example.dependencynow.modul.DaggerMyComponent
-import com.example.dependencynow.modul.MyComponent
+import com.example.dependencynow.module.DaggerMyComponent
+import com.example.dependencynow.module.MyComponent
 
 
 class MyApp : Application() {

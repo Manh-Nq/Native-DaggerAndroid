@@ -1,4 +1,4 @@
-package com.example.dependencynow.modul
+package com.example.dependencynow.module
 
 import android.app.Application
 import com.example.dependencynow.screens.main.MainActivity

@@ -1,11 +1,10 @@
-package com.example.dependencynow.modul
+package com.example.dependencynow.module
 
 import android.app.Application
 import com.example.dependencynow.database.dao.PersonDao
 import com.example.dependencynow.database.dao.PersonDatabase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class MyModule {
