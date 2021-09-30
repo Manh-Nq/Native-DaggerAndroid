@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.screens.main.holder.MainPersonViewHolder
 
-class MainPersonAdapter : ListAdapter<Person, RecyclerView.ViewHolder>(PersonDiff()) {
+class MainPersonAdapter(val listener: PersonListener) :
+    ListAdapter<Person, RecyclerView.ViewHolder>(PersonDiff()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MainPersonViewHolder.create(parent)
+        return MainPersonViewHolder.create(parent, listener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -20,12 +21,12 @@ class MainPersonAdapter : ListAdapter<Person, RecyclerView.ViewHolder>(PersonDif
 
 class PersonDiff : DiffUtil.ItemCallback<Person>() {
     override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
-        return true
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
         return true
     }
-
-
 }
+
+data class PersonListener(val deleteClicked: (Person) -> Unit, val itemClicked: (Person) -> Unit)

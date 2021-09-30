@@ -37,4 +37,10 @@ class MainViewModel(dataBase: PersonDatabase) : ViewModel() {
         }
     }
 
+    fun delete(item: Person) {
+        viewModelScope.launch {
+            personDao.delete(item.id)
+        }
+    }
+
 }

@@ -10,18 +10,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dependencynow.MyApp
 import com.example.dependencynow.R
 import com.example.dependencynow.Utils
+import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.databinding.ActivityMainBinding
 import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
+import com.example.dependencynow.screens.main.adapter.PersonListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
-
+    private  val TAG = "ManhNQ"
     val viewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MyApp).personDB)
     }
-    val personAdapter: MainPersonAdapter by lazy { MainPersonAdapter() }
+    val personAdapter: MainPersonAdapter by lazy {
+        MainPersonAdapter(
+            PersonListener(
+                this::onDeleteClicked,
+                this::onItemClicked
+            )
+        )
+    }
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
 
@@ -50,5 +59,13 @@ class MainActivity : AppCompatActivity() {
         viewModel._data.observe(this) {
             personAdapter.submitList(it)
         }
+    }
+
+    private fun onItemClicked(item: Person) {
+        Log.d(TAG, "onItemClicked: ")
+    }
+
+    private fun onDeleteClicked(item: Person) {
+        viewModel.delete(item)
     }
 }
