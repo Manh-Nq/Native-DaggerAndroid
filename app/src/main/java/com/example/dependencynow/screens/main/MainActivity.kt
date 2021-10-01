@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var personAdapter: MainPersonAdapter
 
-    val viewModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
