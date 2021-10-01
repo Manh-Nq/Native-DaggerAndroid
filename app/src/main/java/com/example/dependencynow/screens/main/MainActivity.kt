@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun itemClicked(item: Person) {
-
+generateNoti(item.name)
     }
 
     @SuppressLint("ShowToast")
