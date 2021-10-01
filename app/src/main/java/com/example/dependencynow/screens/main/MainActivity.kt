@@ -14,15 +14,15 @@ import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.databinding.ActivityMainBinding
 import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
 import com.example.dependencynow.screens.main.adapter.PersonListener
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
-    private  val TAG = "ManhNQ"
-    val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory((application as MyApp).personDB)
-    }
+    private val TAG = "ManhNQ"
+
+    @Inject
+    lateinit var viewModel: MainViewModel
+
     val personAdapter: MainPersonAdapter by lazy {
         MainPersonAdapter(
             PersonListener(
@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val component = (application as MyApp).component.createCustomComponent().createInt(10).build()
+        component.inject(this)
         binding.btInsert.setOnClickListener {
             viewModel.insert()
         }

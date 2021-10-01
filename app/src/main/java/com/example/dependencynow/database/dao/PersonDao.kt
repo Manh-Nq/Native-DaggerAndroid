@@ -5,6 +5,7 @@ import androidx.annotation.NonNull
 import androidx.room.*
 import com.example.dependencynow.database.model.Person
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 @Dao
 interface PersonDao {

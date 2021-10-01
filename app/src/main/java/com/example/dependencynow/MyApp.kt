@@ -1,18 +1,18 @@
 package com.example.dependencynow
 
 import android.app.Application
-import com.example.dependencynow.database.dao.PersonDatabase
-import dagger.hilt.android.HiltAndroidApp
+import com.example.dependencynow.modul.main.DaggerMyComponent
+import com.example.dependencynow.modul.main.MyComponent
 
 
 class MyApp : Application() {
-    lateinit var personDB: PersonDatabase
-
+    lateinit var component: MyComponent
     lateinit var instance: MyApp
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        personDB = PersonDatabase.builder(instance)
+        component = DaggerMyComponent.builder().attachApplication(this)
+            .attachInt(0).build()
     }
 }

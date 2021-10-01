@@ -5,41 +5,46 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.dependencynow.Utils
+import com.example.dependencynow.database.dao.PersonDao
 import com.example.dependencynow.database.dao.PersonDatabase
 import com.example.dependencynow.database.model.Person
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
+import javax.inject.Named
 
+//
+//class MainViewModelFactory(val dataBase: PersonDatabase) : ViewModelProvider.Factory {
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+//            return MainViewModel(dataBase) as T
+//        }
+//        throw IllegalArgumentException("not support type")
+//    }
+//}
 
-class MainViewModelFactory(val dataBase: PersonDatabase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(dataBase) as T
-        }
-        throw IllegalArgumentException("not support type")
-    }
-}
+class MainViewModel @Inject constructor
+    (private val dao: PersonDao, @Named("num") val num: Int) :
+    ViewModel() {
 
-class MainViewModel(dataBase: PersonDatabase) : ViewModel() {
-    val personDao = dataBase.personDao
-    val _data = personDao.getAll().asLiveData()
+    val _data = dao.getAll().asLiveData()
 
 
     fun insert() {
         viewModelScope.launch {
-            personDao.insert(Utils.randomPerson())
+            dao.insert(Utils.randomPerson())
         }
     }
 
     fun deleteAll() {
         viewModelScope.launch {
-            personDao.deleteAll()
+            dao.deleteAll()
         }
     }
 
     fun delete(item: Person) {
         viewModelScope.launch {
-            personDao.delete(item.id)
+            dao.delete(item.id)
         }
     }
 
