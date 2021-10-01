@@ -3,6 +3,8 @@ package com.example.dependencynow.screens.main
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,10 +48,18 @@ class MainActivity : AppCompatActivity() {
         observer()
     }
 
-    private fun initRecycle() {
-        personAdapter.setOnclickListener(PersonListener(this::deleteClicked, this::itemClicked))
-        binding.rvPerson.layoutManager = LinearLayoutManager(this)
-        binding.rvPerson.adapter = personAdapter
+    private fun initRecycle() = with(binding.rvPerson) {
+        personAdapter.setOnclickListener(
+            PersonListener(
+                this@MainActivity::deleteClicked,
+                this@MainActivity::itemClicked
+            )
+        )
+        layoutManager = LinearLayoutManager(this@MainActivity)
+        adapter = personAdapter
+        addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            scrollToPosition((adapter as MainPersonAdapter).currentList.size - 1)
+        }
     }
 
     private fun observer() {
