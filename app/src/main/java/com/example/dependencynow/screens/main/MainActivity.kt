@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     private var toast: Toast? = null
 
-    @Inject
-    lateinit var personAdapter: MainPersonAdapter
+
+    val personAdapter: MainPersonAdapter by lazy {
+        MainPersonAdapter(PersonListener(this::deleteClicked, this::itemClicked))
+    }
 
     @Inject
     lateinit var viewModel: MainViewModel
@@ -49,12 +51,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecycle() = with(binding.rvPerson) {
-        personAdapter.setOnclickListener(
-            PersonListener(
-                this@MainActivity::deleteClicked,
-                this@MainActivity::itemClicked
-            )
-        )
         layoutManager = LinearLayoutManager(this@MainActivity)
         adapter = personAdapter
         addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->

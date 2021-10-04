@@ -1,29 +1,25 @@
 package com.example.dependencynow.modul
 
-import android.app.Activity
 import android.app.Application
 import com.example.dependencynow.database.dao.PersonDao
 import com.example.dependencynow.database.dao.PersonDatabase
 import com.example.dependencynow.screens.main.MainViewModel
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
  class MyModule {
 
-   @Provides
-   @Singleton
-   fun provideDataBase(application: Application) = PersonDatabase.builder(application)
+  @Provides
+  fun provideDataBase(application: Application) = PersonDatabase.builder(application)
 
-   @Provides
-   @Singleton
-   fun provideDao(personDatabase: PersonDatabase) = personDatabase.personDao
+  @Provides
+  fun provideDao(personDatabase: PersonDatabase) = personDatabase.personDao
 
-   @Provides
-   fun getMainViewModel(dao: PersonDao) = MainViewModel(dao)
+  @Provides
+  fun getMainViewModel(dao: PersonDao) = MainViewModel(dao)
 }

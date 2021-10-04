@@ -6,13 +6,10 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class MyApp : Application() {
-    lateinit var personDB: PersonDatabase
-
     lateinit var instance: MyApp
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        personDB = PersonDatabase.builder(instance)
     }
 }
