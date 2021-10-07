@@ -13,23 +13,24 @@ import com.example.dependencynow.R
 import com.example.dependencynow.Utils
 import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.databinding.ActivityMainBinding
+import com.example.dependencynow.modul.example.CustomScope
 import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
 import com.example.dependencynow.screens.main.adapter.PersonListener
+import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@CustomScope
 class MainActivity : AppCompatActivity() {
 
     private var toast: Toast? = null
-
 
     val personAdapter: MainPersonAdapter by lazy {
         MainPersonAdapter(PersonListener(this::deleteClicked, this::itemClicked))
     }
 
-    @Inject
-    lateinit var viewModel: MainViewModel
+    val viewModel: MainViewModel by viewModels()
 
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         observer()
     }
 
+
     private fun initRecycle() = with(binding.rvPerson) {
         layoutManager = LinearLayoutManager(this@MainActivity)
         adapter = personAdapter
@@ -57,10 +59,13 @@ class MainActivity : AppCompatActivity() {
             scrollToPosition((adapter as MainPersonAdapter).currentList.size - 1)
         }
     }
-
+    private  val TAG = "ManhNQ"
     private fun observer() {
-        viewModel._data.observe(this) {
+       /* viewModel._data.observe(this) {
             personAdapter.submitList(it)
+        }*/
+        viewModel._num.observe(this) {
+            Log.d(TAG, "observer: $it")
         }
     }
 

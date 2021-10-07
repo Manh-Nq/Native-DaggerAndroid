@@ -1,9 +1,6 @@
 package com.example.dependencynow.screens.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.dependencynow.Utils
 import com.example.dependencynow.database.dao.PersonDao
 import com.example.dependencynow.database.dao.PersonDatabase
@@ -12,27 +9,36 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
+import javax.inject.Named
+import kotlin.time.days
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val personDao: PersonDao) : ViewModel() {
+class MainViewModel @Inject constructor(
+    @Named("number") txt: Int
+) : ViewModel() {
 
-     val _data = personDao.getAll().asLiveData()
+//    val _data = personDao.getAll().asLiveData()
+    var _num: MutableLiveData<Int> = MutableLiveData<Int>()
+
+    init {
+        _num.value = txt
+    }
 
     fun insert() {
         viewModelScope.launch {
-            personDao.insert(Utils.randomPerson())
+//            personDao.insert(Utils.randomPerson())
         }
     }
 
     fun deleteAll() {
         viewModelScope.launch {
-            personDao.deleteAll()
+//            personDao.deleteAll()
         }
     }
 
     fun delete(item: Person) {
         viewModelScope.launch {
-            personDao.delete(item.id)
+//            personDao.delete(item.id)
         }
     }
 

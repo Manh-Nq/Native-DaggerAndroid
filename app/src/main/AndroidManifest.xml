@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DependencyNow">
         <activity
-            android:name=".screens.main.MainActivity"
+            android:name=".screens.exp.ExampleActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
