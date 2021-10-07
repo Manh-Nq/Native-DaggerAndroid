@@ -6,10 +6,5 @@ import dagger.hilt.components.SingletonComponent
 
 @CustomScope
 @DefineComponent(parent = ActivityRetainedComponent::class)
-public interface CustomComponent {
-
-    @DefineComponent.Builder
-    interface Builder {
-        fun build(): CustomComponent
-    }
+ interface CustomComponent {
 }

@@ -1,7 +1,7 @@
 package com.example.dependencynow
 
 import android.app.Application
-import com.example.dependencynow.database.dao.PersonDatabase
+import dagger.hilt.EntryPoints
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

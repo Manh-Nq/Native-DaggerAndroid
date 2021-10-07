@@ -14,7 +14,7 @@ import kotlin.time.days
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    @Named("number") txt: Int
+    @Named("nmanh") txt: Int
 ) : ViewModel() {
 
 //    val _data = personDao.getAll().asLiveData()

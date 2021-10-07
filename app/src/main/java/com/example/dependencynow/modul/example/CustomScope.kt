@@ -1,5 +1,6 @@
 package com.example.dependencynow.modul.example
 
+import dagger.hilt.InstallIn
 import javax.inject.Scope
 
 @Scope

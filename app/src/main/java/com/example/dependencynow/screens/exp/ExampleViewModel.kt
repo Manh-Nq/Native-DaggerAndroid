@@ -6,18 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.dependencynow.database.dao.PersonDao
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
-class ExampleViewModel @Inject constructor(
-    @Named("number") num: Int,
-    @Assisted val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class ExampleViewModel @Inject  constructor() : ViewModel() {
     var _data: MutableLiveData<Int> = MutableLiveData()
 
     init {
-        _data.value = num
+        _data.value = 10
     }
 }
