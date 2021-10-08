@@ -4,24 +4,18 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dependencynow.MyApp
-import com.example.dependencynow.R
-import com.example.dependencynow.Utils
 import com.example.dependencynow.database.model.Person
 import com.example.dependencynow.databinding.ActivityMainBinding
-import com.example.dependencynow.modul.example.CustomScope
+import com.example.dependencynow.modul.example.M001Scope
 import com.example.dependencynow.screens.main.adapter.MainPersonAdapter
 import com.example.dependencynow.screens.main.adapter.PersonListener
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-@CustomScope
+@M001Scope
 class MainActivity : AppCompatActivity() {
 
     private var toast: Toast? = null

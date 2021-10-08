@@ -13,13 +13,13 @@ import javax.inject.Named
 import kotlin.time.days
 
 @HiltViewModel
-class MainViewModel @Inject constructor(@Named("String1") txt: String) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
 
     //    val _data = personDao.getAll().asLiveData()
     var _num: MutableLiveData<String> = MutableLiveData<String>()
 
     init {
-        _num.value = txt
+        _num.value = "hello"
     }
 
     fun insert() {
