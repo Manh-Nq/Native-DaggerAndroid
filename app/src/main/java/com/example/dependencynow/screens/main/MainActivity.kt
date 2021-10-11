@@ -23,11 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     private var toast: Toast? = null
 
-    @Inject
-    lateinit var personAdapter: MainPersonAdapter
 
-    @Inject
-    lateinit var viewModel: MainViewModel
+    val personAdapter: MainPersonAdapter by lazy { MainPersonAdapter() }
+
+    val viewModel: MainViewModel by viewModels()
 
     private var _binding: ActivityMainBinding? = null
     val binding: ActivityMainBinding get() = _binding!!
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun itemClicked(item: Person) {
-generateNoti(item.name)
+           generateNoti(item.name)
     }
 
     @SuppressLint("ShowToast")

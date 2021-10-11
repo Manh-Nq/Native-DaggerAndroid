@@ -9,7 +9,7 @@ import com.example.dependencynow.screens.main.holder.MainPersonViewHolder
 import dagger.Provides
 import javax.inject.Inject
 
-class MainPersonAdapter @Inject constructor() :
+class MainPersonAdapter :
     ListAdapter<Person, RecyclerView.ViewHolder>(PersonDiff()) {
 
     var listener: PersonListener? = null
