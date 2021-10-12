@@ -1,11 +1,10 @@
 package com.example.dependencynow.modul.home
 
 import dagger.Module
-import dagger.hilt.migration.DisableInstallInCheck
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 
 @Module
-@DisableInstallInCheck
-class HomeModule {
-
-}
+@InstallIn(ActivityRetainedComponent::class)
+interface AssistedInjectModule
