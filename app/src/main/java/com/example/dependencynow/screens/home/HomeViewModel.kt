@@ -3,18 +3,13 @@ package com.example.dependencynow.screens.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.dependencynow.database.dao.PersonDao
 import com.example.dependencynow.modul.home.HomeFactory
-import dagger.Module
 import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 
 const val TAG = "ManhNQ"
 
-class HomeViewModel @AssistedInject constructor(@Assisted txt: String,val dao: PersonDao) : ViewModel() {
+class HomeViewModel @AssistedInject constructor(@Assisted txt: String) : ViewModel() {
 
     var _data = MutableLiveData<String>()
 

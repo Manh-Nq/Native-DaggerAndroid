@@ -2,6 +2,7 @@ package com.example.dependencynow.modul
 
 import android.app.Application
 import com.example.dependencynow.database.dao.PersonDatabase
+import com.example.dependencynow.modul.home.customscope.HomeModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +17,5 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 
    @Provides
    fun provideDao(personDatabase: PersonDatabase) = personDatabase.personDao
+
 }
