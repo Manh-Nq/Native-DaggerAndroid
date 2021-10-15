@@ -13,7 +13,9 @@ class HomeComponentHandler @Inject constructor(private val userComponentFactory:
         private set
 
     fun create() {
-        userComponent = userComponentFactory.create()
+        if (userComponent == null) {
+            userComponent = userComponentFactory.create()
+        }
     }
 
     fun destroy() {

@@ -6,8 +6,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dependencynow.modul.home.HomeFactory
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 const val TAG = "ManhNQ"
+
+class ProviderFactory(
+    private val assistedFactory: HomeFactory,
+    private val initParams: String
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return assistedFactory.create(initParams) as T
+    }
+
+}
 
 class HomeViewModel @AssistedInject constructor(@Assisted txt: String) : ViewModel() {
 
@@ -15,17 +26,6 @@ class HomeViewModel @AssistedInject constructor(@Assisted txt: String) : ViewMod
 
     init {
         _data.value = txt
-    }
-
-    companion object {
-        fun provideFactory(
-            assistedFactory: HomeFactory,
-            initParams: String
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return assistedFactory.create(initParams) as T
-            }
-        }
     }
 }
 

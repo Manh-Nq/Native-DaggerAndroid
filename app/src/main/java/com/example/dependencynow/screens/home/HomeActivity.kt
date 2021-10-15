@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dependencynow.databinding.ActivityHomeBinding
 import com.example.dependencynow.modul.home.HomeFactory
 import com.example.dependencynow.modul.home.customscope.HomeEntryPoint
-import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -16,14 +15,21 @@ import javax.inject.Inject
 class HomeActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var ftr: HomeFactory
+    lateinit var homeFactory: HomeFactory
 
     @Inject
     lateinit var homeComponentHandler: HomeComponentHandler
 
+    @Inject
+    lateinit var exampleClassFactory: ExampleClassFactory
+
+    val exampleClass: ExampleClass by lazy {
+        exampleClassFactory.create(123, 632)
+    }
+
     private val homeViewModel: HomeViewModel by viewModels {
-        HomeViewModel.provideFactory(
-            ftr, "this is result"
+        ProviderFactory(
+            homeFactory, "this is result"
         )
     }
 
@@ -32,7 +38,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         homeComponentHandler.create()
 
         _binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -44,8 +49,36 @@ class HomeActivity : AppCompatActivity() {
             binding.txt.text = it
         }
 
-        val person = EntryPoints.get(homeComponentHandler, HomeEntryPoint::class.java)
+        val entryPoint = EntryPoints.get(homeComponentHandler, HomeEntryPoint::class.java)
 
-        Log.d(TAG, "onCreate: ${person}")
+        entryPoint.getPerson().observe(this) {
+            Log.d(TAG, "onCreate: ${it.size}")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+        homeComponentHandler.destroy()
     }
 }
